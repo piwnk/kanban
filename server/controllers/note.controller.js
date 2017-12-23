@@ -4,8 +4,10 @@ import Lane from '../models/lane';
 import Note from '../models/note';
 
 export const addNote = (req, res) => {
-  console.log(req.body);
-  const { note, laneId } = req.body;
+  const {
+    note,
+    laneId,
+  } = req.body;
 
   if (!note || !note.task || !laneId) {
     res.status(400).end();
@@ -17,17 +19,35 @@ export const addNote = (req, res) => {
 
   newNote.id = uuid();
   newNote.save((err, saved) => {
-    if (err) { res.status(500).send(err); }
+    if (err) {
+      res.status(500).send(err);
+    }
 
-    Lane.findOne({ id: laneId })
+    Lane.findOne({
+      id: laneId,
+    })
       .then(
         lane => {
+          console.log(saved);
           lane.notes.push(saved);
           return lane.save(); // WHY return
         })
-        .then(() => {
-          res.json(saved);
-        }
-        );
+      .then(() => {
+        res.json(saved);
+      });
+  });
+};
+
+export const deleteNote = (req, res) => {
+  Note.findOne({
+    id: req.params.noteId,
+  })
+  .exec((err, note) => {
+    if (err || !note) {
+      res.status(500).send(err);
+    }
+    note.remove(() => {
+      res.status(200).end();
+    });
   });
 };
