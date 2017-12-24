@@ -16,4 +16,8 @@ const noteSchema = new Schema({
 });
 
 
+noteSchema.pre('remove', function (next) {
+
+});
+
 export default mongoose.model('Note', noteSchema);

@@ -1,5 +1,7 @@
-import Lane from '../models/lane';
 import uuid from 'uuid';
+
+import Lane from '../models/lane';
+import Note from '../models/note';
 
 export function getSomething(req, res) {
   return res.status(200).end();
@@ -35,6 +37,27 @@ export const getLanes = (req, res) => {
 export const deleteLane = (req, res) => {
   Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
     if (err) { res.status(500).send(err); }
+
+    // WHY WORKING ONLY WITH PRE
+    lane.notes.map(note => {
+      Note.findOne({
+        id: note.id,
+      })
+      .then(noteFound => {
+        console.log(noteFound);
+        console.log(typeof noteFound);
+        return noteFound.remove();
+      })
+      .catch(removeErr => res.status(500).send(removeErr))
+      .then(() => console.log('Notes related deleted'));
+      // .exec((noteErr, noteFound) => {
+      //   if (noteErr || !noteFound) { res.status(500).send(noteErr); }
+      //   console.log(noteFound);
+      //   noteFound.remove(() => {
+      //     console.log('Notes related removed');
+      //   });
+      // });
+    });
 
     lane.remove(() => {
       res.status(200).end();

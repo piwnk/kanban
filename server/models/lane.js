@@ -31,17 +31,19 @@ function populateNotes(next) {
 laneSchema.pre('find', populateNotes);
 laneSchema.pre('findOne', populateNotes);
 
-laneSchema.pre('remove', function (next) {
-  console.log(this);
-  this.notes.map(item => {
-    Note.findOne({
-      id: item.id,
-    })
-    .exec((err, note) => {
-      note.remove();
-      console.log('Notes related removed');
-    });
-    next();
-  });
-});
+// laneSchema.pre('remove', function (next) {
+//   this.notes.map(note => {
+//     Note.findOne({
+//       id: note.id,
+//     })
+//     .exec((noteErr, noteFound) => {
+//       console.log(noteFound);
+//       noteFound.remove(() => {
+//         console.log('Notes related removed');
+//       });
+//     });
+//     next();
+//   });
+// });
+
 export default mongoose.model('Lane', laneSchema);

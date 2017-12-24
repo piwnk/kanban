@@ -28,9 +28,8 @@ export const addNote = (req, res) => {
     })
       .then(
         lane => {
-          console.log(saved);
           lane.notes.push(saved);
-          return lane.save(); // WHY return
+          return lane.save();
         })
       .then(() => {
         res.json(saved);
@@ -38,14 +37,33 @@ export const addNote = (req, res) => {
   });
 };
 
+
+export const updateNote = (req, res) => {
+  const { task } = req.body;
+
+  Note.findOne({
+    id: req.params.noteId,
+  })
+  .then(note => {
+      // ESLINT spread INSTEAD?
+      // const updatedNote = {
+      //   ...note,
+      //   task,
+      // };
+    note.task = task;
+    return note.update();
+  })
+  .then(() => res.status(200).end());
+};
+
+
 export const deleteNote = (req, res) => {
   Note.findOne({
     id: req.params.noteId,
   })
   .exec((err, note) => {
-    if (err || !note) {
-      res.status(500).send(err);
-    }
+    if (err || !note) { res.status(500).send(err); }
+
     note.remove(() => {
       res.status(200).end();
     });
