@@ -64,3 +64,21 @@ export const deleteLane = (req, res) => {
     });
   });
 };
+
+export const updateLane = (req, res) => {
+  const { name } = req.body;
+
+  Lane.findOne({
+    id: req.params.laneId,
+  })
+  .then(lane => {
+      // ESLINT spread INSTEAD?
+      // const updatedNote = {
+      //   ...note,
+      //   task,
+      // };
+    lane.name = name;
+    return lane.save();
+  })
+  .then(() => res.status(200).end());
+};

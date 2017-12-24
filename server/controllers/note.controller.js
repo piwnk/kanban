@@ -51,7 +51,7 @@ export const updateNote = (req, res) => {
       //   task,
       // };
     note.task = task;
-    return note.update();
+    return note.save();
   })
   .then(() => res.status(200).end());
 };
