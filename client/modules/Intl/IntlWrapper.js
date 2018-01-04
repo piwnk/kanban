@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 
@@ -12,7 +13,13 @@ export function IntlWrapper(props) {
 
 IntlWrapper.propTypes = {
   children: PropTypes.element.isRequired,
-  intl: PropTypes.object.isRequired,
+  intl: PropTypes.object, // .isRequired,
+};
+
+IntlWrapper.defaultProps = {
+  intl: {
+    locale: 'en',
+  },
 };
 
 // Retrieve data from store as props

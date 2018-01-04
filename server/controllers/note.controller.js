@@ -9,6 +9,9 @@ export const addNote = (req, res) => {
     laneId,
   } = req.body;
 
+  console.log('Body:');
+  console.log(req.body);
+
   if (!note || !note.task || !laneId) {
     res.status(400).end();
   }

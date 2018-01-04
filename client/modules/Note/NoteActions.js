@@ -9,18 +9,23 @@ export const EDIT_NOTE = 'EDIT_NOTE';
 
 export const createNote = (note, laneId) => ({
   type: CREATE_NOTE,
-  laneId,
-  // note: {
-  //   id: uuid(),
-  //   ...note,
-  // },
   note,
+  laneId,
 });
 
-export const createNoteRequest = (note, laneId) => (
-  dispatch => callApi('notes', 'post', note)
-  .then(res => { dispatch(createNote(res, laneId)); })
-);
+export const createNoteRequest = (note, laneId) => {
+  console.log(`LaneId: ${laneId}`);
+  console.log(note);
+  return (dispatch) => {
+    return callApi('notes', 'post', { note, laneId })
+    .then(noteResp => {
+      console.log('Response:');
+      // console.log(noteResp);
+      debugger;
+      dispatch(createNote(noteResp, laneId));
+    });
+  };
+};
 
 export const createNotes = notesData => ({
   type: CREATE_NOTES,

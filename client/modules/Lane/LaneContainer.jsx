@@ -9,14 +9,14 @@ import Lane from './Lane';
 import { deleteLane, updateLane, editLane } from './LaneActions';
 import { createNoteRequest } from '../Note/NoteActions';
 
-const mapStateToProps = (state, ownProps) => ({
-  lane: ownProps.lane.notes.map(noteId => state.notes.find(note => noteId === note.id)),
-});
+const mapStateToProps = (state, ownProps) => {
+  // console.log(state);
+  // console.log(ownProps);
+  return {
+    laneNotes: ownProps.lane.notes.map(noteId => state.notes[noteId]), // .find(note => noteId === note.id)),
+  };
+};
 
-// const mapDispatchToProps = dispatch => ({
-//   ...laneActions,
-//   addNote: createNote,
-// });
 
 const mapDispatchToProps = {
   editLane,

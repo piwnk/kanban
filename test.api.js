@@ -16,7 +16,7 @@ const getLane = (laneId) => request({
 });
 
 const addLane = name => {
-  console.log(`${name} added`);
+  console.log(`Adding lane ${name}...`);
   return request({
     method: 'POST',
     url: `${urlBase}/lanes`,
@@ -76,19 +76,20 @@ const deleteLane = laneId => {
   });
 };
 
-// addLane('first lane')
-// .then(lane => {
-  // addNote('first task', lane.id);s
+addLane('third lane')
+.then(lane => {
+  addNote('third task', lane.id);
   // .then(() => deleteLane(lane.id));
-// });
+});
 
-updateNote('165d70db-a69e-41eb-a088-751b301d369e', 'updated task again and again')
-.then(console.log('Done'))
-.catch(err => console.log(err));
+// updateNote('165d70db-a69e-41eb-a088-751b301d369e', 'updated task again and again')
+// .then(console.log('Done'))
+// .catch(err => console.log(err));
 
-updateLane('176e6c43-f580-42d2-9f90-c266e7701f24', 'updated name again and again')
-.then(console.log('Done'))
-.catch(err => console.log(err));
+// updateLane('176e6c43-f580-42d2-9f90-c266e7701f24', 'updated name again and again')
+// .then(console.log('Done'))
+// .catch(err => console.log(err));
 
-// getLanes().then(response => console.log(response.lanes));
-
+getLanes()
+.then(response => console.log(response.lanes))
+.catch(error => console.log(error));

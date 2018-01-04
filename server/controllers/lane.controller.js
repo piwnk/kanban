@@ -44,8 +44,8 @@ export const deleteLane = (req, res) => {
         id: note.id,
       })
       .then(noteFound => {
-        console.log(noteFound);
-        console.log(typeof noteFound);
+        // console.log(noteFound);
+        // console.log(typeof noteFound);
         return noteFound.remove();
       })
       .catch(removeErr => res.status(500).send(removeErr))

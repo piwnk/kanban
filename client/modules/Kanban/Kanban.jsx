@@ -5,7 +5,7 @@ import Lanes from '../Lane/Lanes';
 
 import styles from '../Lane/Lane.css';
 
-import { createLaneRequest } from '../Lane/LaneActions';
+import { createLaneRequest, fetchLanes } from '../Lane/LaneActions';
 
 const Kanban = (props) => (
   <div>
@@ -19,7 +19,7 @@ const Kanban = (props) => (
   </div>
 );
 
-// Kanban.need = [() => { return fetchLanes(); }]; // WHY instructions SUCK (end of 23.5). Again?
+Kanban.need = [() => { return fetchLanes(); }]; // WHY instructions SUCK (end of 23.5).
 
 Kanban.propTypes = {
   lanes: PropTypes.array,

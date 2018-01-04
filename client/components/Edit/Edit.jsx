@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './Edit.css';
+
 export default class extends Component {
-  propTypes = {
+  static propTypes = {
     value: PropTypes.string,
     onUpdate: PropTypes.func,
     onValueClick: PropTypes.func,

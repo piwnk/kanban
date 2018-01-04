@@ -23,7 +23,7 @@ const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) =>
           className={styles.LaneName}
           editing={lane.editing}
           value={lane.name}
-          onValueClick={editLane(lane.id)} // TODO
+          onValueClick={() => editLane(lane.id)} // TODO
           onUpdate={name => updateLane({
             ...lane,
             name,
