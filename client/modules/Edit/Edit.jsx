@@ -28,7 +28,8 @@ export default class extends Component {
     <button
       className={styles.delete}
       onClick={this.props.onDelete}
-    >X
+    >
+      <i className="fa fa-remove" />
     </button>
   )
 

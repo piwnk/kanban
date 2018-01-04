@@ -1,4 +1,22 @@
 /* Kanban styles */
-.addLane {
-  border: 1px solid coral
+
+.Lanes {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Lane {
+  width: 200px;
+  position: relative;
+  background: lightblue;
+  border: 1px solid darkcyan;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px;
+}
+
+.DeleteLaneBtn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }

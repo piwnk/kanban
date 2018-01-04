@@ -6,9 +6,9 @@ import styles from './App.css';
 
 // Import Components
 import Helmet from 'react-helmet';
-import DevTools from './components/DevTools';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+// import DevTools from './components/DevTools';
+// import Header from './components/Header/Header';
+// import Footer from './components/Footer/Footer';
 
 // Import Actions
 // import { toggleAddPost } from './AppActions';
@@ -31,11 +31,11 @@ export class App extends Component {
   render() {
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
+        {/* {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />} */}
         <div>
           <Helmet
-            title="MERN Starter - Blog App"
-            titleTemplate="%s - Blog App"
+            title="Kanban"
+            // titleTemplate="%s - Kodilla App"
             meta={[
               { charset: 'utf-8' },
               {
@@ -48,11 +48,11 @@ export class App extends Component {
               },
             ]}
           />
-          <Header />
+          {/* <Header /> */}
           <div className={styles.container}>
             {this.props.children}
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
     );

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NotesContainer from '../Note/NoteContainer';
-import Edit from '../../components/Edit/Edit';
+import NotesContainer from '../Note/NotesContainer';
+import Edit from '../Edit/Edit';
 
 import styles from './Lane.css';
 
@@ -11,14 +11,6 @@ const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) =>
   return (
     <div className={styles.Lane}>
       <div className={styles.LaneHeader}>
-        <div className={styles.LaneAddNote}>
-          <button
-            onClick={() => addNote(
-              { task: 'New Note' },
-              laneId)}
-          >Add Note</button>
-        </div>
-        {/* <h4>{lane.name}</h4> */}
         <Edit
           className={styles.LaneName}
           editing={lane.editing}
@@ -30,16 +22,27 @@ const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) =>
             editing: false,
           })}
         />
-        <div className={styles.LaneDelete}>
+        <div className={styles.DeleteLaneBtn}>
           <button
             onClick={() => deleteLane(laneId)}
-          >Remove Lane</button>
+          >
+            <i className="fa fa-remove" />
+          </button>
         </div>
       </div>
       <NotesContainer
         notes={laneNotes}
         laneId={laneId}
       />
+      <div className={styles.LaneAddNote}>
+        <button
+          onClick={() => addNote(
+            { task: 'New Note' },
+            laneId)}
+        >
+          <i className="fa fa-plus" /> Add note...
+        </button>
+      </div>
     </div>
   );
 };

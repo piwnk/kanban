@@ -14,14 +14,9 @@ export const createNote = (note, laneId) => ({
 });
 
 export const createNoteRequest = (note, laneId) => {
-  console.log(`LaneId: ${laneId}`);
-  console.log(note);
   return (dispatch) => {
     return callApi('notes', 'post', { note, laneId })
     .then(noteResp => {
-      console.log('Response:');
-      // console.log(noteResp);
-      debugger;
       dispatch(createNote(noteResp, laneId));
     });
   };

@@ -19,7 +19,6 @@ export const addLane = (req, res) => {
   newLane.id = uuid();
 
   newLane.save((err, saved) => {
-    // console.log(saved);
     if (err) { res.status(500).send(err); }
 
     res.json(saved);
@@ -44,8 +43,6 @@ export const deleteLane = (req, res) => {
         id: note.id,
       })
       .then(noteFound => {
-        // console.log(noteFound);
-        // console.log(typeof noteFound);
         return noteFound.remove();
       })
       .catch(removeErr => res.status(500).send(removeErr))

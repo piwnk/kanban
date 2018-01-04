@@ -3,19 +3,19 @@ const request = require('request-promise');
 
 const urlBase = 'http://localhost:8000/api/';
 
-const getLanes = () => request({
+const getLanes = async () => request({
   method: 'GET',
   uri: `${urlBase}/lanes`,
   json: true,
 });
 
-const getLane = (laneId) => request({
+const getLane = async (laneId) => request({
   method: 'GET',
   url: `${urlBase}/lanes/${laneId}`,
   json: true,
 });
 
-const addLane = name => {
+const addLane = async name => {
   console.log(`Adding lane ${name}...`);
   return request({
     method: 'POST',
@@ -27,7 +27,7 @@ const addLane = name => {
   });
 };
 
-const addNote = (task, laneId) => {
+const addNote = async (task, laneId) => {
   console.log(`${task} added to lane ${laneId}`);
   return request({
     method: 'POST',
@@ -42,7 +42,7 @@ const addNote = (task, laneId) => {
   });
 };
 
-const updateNote = (noteId, task) => {
+const updateNote = async (noteId, task) => {
   console.log('Updating note...');
   return request({
     method: 'PUT',
@@ -54,7 +54,7 @@ const updateNote = (noteId, task) => {
   });
 };
 
-const updateLane = (laneId, name) => {
+const updateLane = async (laneId, name) => {
   console.log('Updating lane...');
   return request({
     method: 'PUT',
@@ -67,7 +67,7 @@ const updateLane = (laneId, name) => {
 };
 
 
-const deleteLane = laneId => {
+const deleteLane = async laneId => {
   console.log('Lane deleted');
   return request({
     method: 'DELETE',
@@ -76,11 +76,19 @@ const deleteLane = laneId => {
   });
 };
 
-addLane('third lane')
-.then(lane => {
-  addNote('third task', lane.id);
+const test = async () => {
+  const lane = await addLane('scriptLane');
+  const note = await addNote('scriptTask', lane.id);
+  console.log(lane);
+  console.log(note);
+};
+
+test();
+
+// .then(lane => {
+//   addNote('third task', lane.id);
   // .then(() => deleteLane(lane.id));
-});
+// });
 
 // updateNote('165d70db-a69e-41eb-a088-751b301d369e', 'updated task again and again')
 // .then(console.log('Done'))
@@ -90,6 +98,6 @@ addLane('third lane')
 // .then(console.log('Done'))
 // .catch(err => console.log(err));
 
-getLanes()
-.then(response => console.log(response.lanes))
-.catch(error => console.log(error));
+// getLanes()
+// .then(response => console.log(response.lanes))
+// .catch(error => console.log(error));

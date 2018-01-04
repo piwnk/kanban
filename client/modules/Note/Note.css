@@ -1,4 +1,8 @@
 /* Note styles */
+.Notes {
+  padding: 10px;
+}
+
 .Note {
-  
+  list-style-type: none;
 }

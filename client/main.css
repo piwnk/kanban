@@ -8,6 +8,7 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	line-height: normal;
+	/* border: 1px coral solid; */
 }
 
 ::-webkit-input-placeholder {
@@ -31,4 +32,9 @@ body {
 	background: #FFF;
 	font-family: 'Lato', sans-serif;
 	font-size: 16px;
+}
+
+button {
+	background: none;
+	border: none;
 }
