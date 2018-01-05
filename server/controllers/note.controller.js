@@ -58,14 +58,9 @@ export const updateNote = (req, res) => {
 
 
 export const deleteNote = (req, res) => {
-  Note.findOne({
+  Note.remove({
     id: req.params.noteId,
   })
-  .exec((err, note) => {
-    if (err || !note) { res.status(500).send(err); }
-
-    note.remove(() => {
-      res.status(200).end();
-    });
-  });
+  .then(() => res.status(200).end())
+  .catch(err => res.status(500).send(err));
 };

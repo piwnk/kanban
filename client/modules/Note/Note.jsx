@@ -7,7 +7,7 @@ const Note = props => {
   return (
     <li className={styles.Note} >
       {props.children}
-    </li >
+    </li>
   );
 };
 

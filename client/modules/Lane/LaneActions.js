@@ -38,6 +38,13 @@ export const updateLane = lane => ({
   type: UPDATE_LANE,
   lane });
 
+export const updateLaneRequest = lane => (
+  dispatch => (
+    callApi(`lanes/${lane.id}`, 'put', lane)
+    .then(() => dispatch(updateLane(lane)))
+  )
+);
+
 export const deleteLane = laneId => ({
   type: DELETE_LANE,
   laneId });
@@ -53,16 +60,17 @@ export const deleteLaneRequest = laneId => {
 export const editLane = laneId => {
   return {
     type: EDIT_LANE,
-    laneId };
-};
-
-export const editLaneRequest = laneId => {
-  return dispatch => {
-    return callApi('lanes', 'put', laneId)
-      .then(() => dispatch(editLane(laneId))
-    );
+    laneId,
   };
 };
+
+// export const editLaneRequest = laneId => {
+//   return dispatch => {
+//     return callApi('lanes', 'put', laneId)
+//       .then(() => dispatch(editLane(laneId))
+//     );
+//   };
+// };
 
 export function fetchLanes() {
   return (dispatch) => {

@@ -54,17 +54,17 @@ const updateNote = async (noteId, task) => {
   });
 };
 
-const updateLane = async (laneId, name) => {
-  console.log('Updating lane...');
-  return request({
-    method: 'PUT',
-    url: `${urlBase}/lanes/${laneId}`,
-    json: true,
-    body: {
-      name,
-    },
-  });
-};
+// const updateLane = async (laneId, name) => {
+//   console.log('Updating lane...');
+//   return request({
+//     method: 'PUT',
+//     url: `${urlBase}/lanes/${laneId}`,
+//     json: true,
+//     body: {
+//       name,
+//     },
+//   });
+// };
 
 
 const deleteLane = async laneId => {
@@ -76,11 +76,32 @@ const deleteLane = async laneId => {
   });
 };
 
+const updateLane = async (lane) => {
+  console.log('Updating lane...');
+  return request({
+    method: 'PUT',
+    // url: `${urlBase}/lanes/${lane.id}`,
+    url: `${urlBase}/lanes/`,
+    json: true,
+    body: {
+      ...lane,
+    },
+  });
+};
+
 const test = async () => {
-  const lane = await addLane('scriptLane');
-  const note = await addNote('scriptTask', lane.id);
-  console.log(lane);
-  console.log(note);
+  const laneToUpdate = {
+    id: 'b9165da2-95c0-49e0-8245-b1b68fb75762',
+    name: 'name changed',
+  };
+
+  const laneUpdated = await updateLane(laneToUpdate);
+  console.log(laneUpdated);
+
+  // const lane = await addLane('scriptLane');
+  // const note = await addNote('scriptTask', lane.id);
+  // console.log(lane);
+  // console.log(note);
 };
 
 test();

@@ -25,6 +25,13 @@ export const addLane = (req, res) => {
   });
 };
 
+
+export const getLane = (req, res) => {
+  Lane.findOne({ id: req.params.laneId })
+  .then(lane => res.json(lane))
+  .catch(err => res.status(500).send(err));
+};
+
 export const getLanes = (req, res) => {
   Lane.find().exec((err, lanes) => {
     if (err) { res.status(500).send(err); }
@@ -47,13 +54,6 @@ export const deleteLane = (req, res) => {
       })
       .catch(removeErr => res.status(500).send(removeErr))
       .then(() => console.log('Notes related deleted'));
-      // .exec((noteErr, noteFound) => {
-      //   if (noteErr || !noteFound) { res.status(500).send(noteErr); }
-      //   console.log(noteFound);
-      //   noteFound.remove(() => {
-      //     console.log('Notes related removed');
-      //   });
-      // });
     });
 
     lane.remove(() => {
@@ -62,20 +62,11 @@ export const deleteLane = (req, res) => {
   });
 };
 
-export const updateLane = (req, res) => {
-  const { name } = req.body;
 
-  Lane.findOne({
-    id: req.params.laneId,
-  })
-  .then(lane => {
-      // ESLINT spread INSTEAD?
-      // const updatedNote = {
-      //   ...note,
-      //   task,
-      // };
-    lane.name = name;
-    return lane.save();
+export const updateLane = (req, res) => {
+  const lane = req.body;
+  Lane.updateOne({
+    ...lane,
   })
   .then(() => res.status(200).end());
 };

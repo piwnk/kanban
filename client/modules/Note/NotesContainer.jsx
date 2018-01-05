@@ -8,7 +8,9 @@ import * as noteActions from './NoteActions';
 
 // WHY as object in instruction (arrow in Lane part)
 const mapDispatchToProps = {
-  ...noteActions,
+  deleteNote: noteActions.deleteNoteRequest,
+  editNote: noteActions.editNote,
+  // ...noteActions,
 };
 
 export default connect(null, mapDispatchToProps)(Notes);
