@@ -7,4 +7,7 @@
   text-transform: capitalize;
 }
 
-/* WHY I need to somehow create styles not knowing "co autor ma na myśli" finally */
+.item {
+  display: flex;
+  justify-content: space-between;
+}

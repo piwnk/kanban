@@ -39,28 +39,48 @@ export const addNote = (req, res) => {
 
 
 export const updateNote = (req, res) => {
-  const { task } = req.body;
+  const note = req.body;
+  console.log(note);
 
-  Note.findOne({
-    id: req.params.noteId,
-  })
-  .then(note => {
-      // ESLINT spread INSTEAD?
-      // const updatedNote = {
-      //   ...note,
-      //   task,
-      // };
-    note.task = task;
-    return note.save();
-  })
-  .then(() => res.status(200).end());
+  return (
+    Note.findOneAndUpdate({ id: note.id }, { task: note.task })
+    .then(() => {
+      return res.status(200).end();
+    })
+    .catch(err => res.status(500).send(err))
+  );
 };
 
 
 export const deleteNote = (req, res) => {
-  Note.remove({
-    id: req.params.noteId,
-  })
-  .then(() => res.status(200).end())
-  .catch(err => res.status(500).send(err));
+  const noteId = req.params.noteId;
+  const laneId = req.body.laneId;
+
+  console.log(`noteId: ${noteId}`);
+  console.log(`laneId: ${laneId}`);
+  // return Note.remove({
+  //   id: noteId,
+  // })
+
+  // .then(Lane.findOne({ id: laneId })
+  //   .then(lane => {
+  //     const notes = lane.notes.filter(note => note.id !== noteId);
+  //     return Lane.updateOne({
+    //       id: laneId,
+    //       notes,
+    //     })
+    //     .then(() => res.status(200).end())
+    //     .catch(err => res.status(500).send(err));
+    //   })
+    // );
+  return (
+      Lane.findOne({ id: laneId })
+      .then(lane => {
+        const notes = lane.notes.filter(note => note.id !== noteId);
+        return Lane.updateOne({
+          id: noteId,
+          notes,
+        });
+      })
+    );
 };

@@ -7,7 +7,7 @@ import Edit from '../Edit/Edit';
 import styles from './Lane.css';
 
 const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) => {
-  const laneId = lane.id;
+  // const laneId = lane.id;
   return (
     <div className={styles.Lane}>
       <div className={styles.LaneHeader}>
@@ -24,7 +24,7 @@ const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) =>
         />
         <div className={styles.DeleteLaneBtn}>
           <button
-            onClick={() => deleteLane(laneId)}
+            onClick={() => deleteLane(lane.id)}
           >
             <i className="fa fa-remove" />
           </button>
@@ -32,16 +32,19 @@ const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) =>
       </div>
       <NotesContainer
         notes={laneNotes}
-        laneId={laneId}
+        laneId={lane.id}
       />
       <div className={styles.LaneAddNote}>
         <button
           onClick={() => addNote(
-            { task: 'New Note' },
-            laneId)}
+            { task: 'New note... ' },
+            lane.id)}
         >
           <i className="fa fa-plus" /> Add note...
         </button>
+      </div>
+      <div>
+        <p>{lane.id}</p>
       </div>
     </div>
   );

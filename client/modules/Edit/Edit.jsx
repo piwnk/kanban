@@ -34,14 +34,13 @@ export default class extends Component {
   )
 
   renderValue = () => (
-    <div>
+    <div className={styles.item}>
       <span
         className={styles.value}
         onClick={this.props.onValueClick}
       >
         {this.props.value}
       </span>
-      {/* WHY Bez sensu, pokaz przycisk delete jak co? jak klikniesz delete? */}
       {this.props.onDelete ? this.renderDelete() : null}
     </div>
   )

@@ -10,6 +10,7 @@ import * as noteActions from './NoteActions';
 const mapDispatchToProps = {
   deleteNote: noteActions.deleteNoteRequest,
   editNote: noteActions.editNote,
+  updateNote: noteActions.updateNoteRequest,
   // ...noteActions,
 };
 

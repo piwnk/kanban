@@ -41,32 +41,31 @@ export const getLanes = (req, res) => {
 };
 
 export const deleteLane = (req, res) => {
-  Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
-    if (err) { res.status(500).send(err); }
-
-    // WHY WORKING ONLY WITH PRE
+  Lane.findOne({ id: req.params.laneId })
+  .then(lane => {
     lane.notes.map(note => {
-      Note.findOne({
+      Note.removeOne({
         id: note.id,
       })
-      .then(noteFound => {
-        return noteFound.remove();
-      })
-      .catch(removeErr => res.status(500).send(removeErr))
-      .then(() => console.log('Notes related deleted'));
+      .catch(err => res.status(500).send(err))
+      .then();
     });
 
-    lane.remove(() => {
-      res.status(200).end();
-    });
+    lane.remove()
+    .then(() => res.status(200).end());
   });
 };
 
 
 export const updateLane = (req, res) => {
   const lane = req.body;
-  Lane.updateOne({
-    ...lane,
-  })
+
+  Lane.findOne({ id: lane.id })
+  .then(found => (
+    Lane.updateOne({
+      ...lane,
+      notes: found.notes,
+    })
+  ))
   .then(() => res.status(200).end());
 };

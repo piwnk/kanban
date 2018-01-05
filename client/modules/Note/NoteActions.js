@@ -1,9 +1,6 @@
 // import uuid from 'uuid';
 import callApi from '../../util/apiCaller';
 
-import {
-  updateLaneRequest,
-} from '../Lane/LaneActions';
 
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const CREATE_NOTES = 'CREATE_NOTES';
@@ -39,6 +36,14 @@ export const updateNote = note => ({
   note,
 });
 
+export const updateNoteRequest = note => (
+  dispatch => {
+    return callApi('notes', 'put', note)
+    .catch(err => console.log(err))
+    .then(dispatch(updateNote(note)));
+  }
+);
+
 export const deleteNote = (noteId, laneId) => ({
   type: DELETE_NOTE,
   noteId,
@@ -47,18 +52,8 @@ export const deleteNote = (noteId, laneId) => ({
 
 export const deleteNoteRequest = (noteId, laneId) => dispatch => {
   return (
-    callApi(`notes/${noteId}`, 'delete')
+    callApi(`notes/${noteId}`, 'delete', { laneId })
     .catch(err => console.log(err))
-    .then(() => {
-      return callApi(`lanes/${laneId}`);
-    })
-    .then(lane => {
-      const laneUpdated = {
-        ...lane,
-        notes: lane.notes.filter(note => noteId !== note.id),
-      };
-      return callApi('lanes', 'put', laneUpdated);
-    })
     .then(dispatch(deleteNote(noteId, laneId)))
   );
 };

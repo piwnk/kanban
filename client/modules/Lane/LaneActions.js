@@ -20,10 +20,6 @@ export const createLanes = lanesData => ({
 
 export const createLane = lane => ({
   type: CREATE_LANE,
-// lane: {
-// id: uuid(),
-// ...lane,
-// },
   lane });
 
 export const createLaneRequest = lane => {
@@ -38,12 +34,12 @@ export const updateLane = lane => ({
   type: UPDATE_LANE,
   lane });
 
-export const updateLaneRequest = lane => (
-  dispatch => (
-    callApi(`lanes/${lane.id}`, 'put', lane)
+export const updateLaneRequest = lane => {
+  return dispatch => (
+    callApi('lanes', 'put', lane)
     .then(() => dispatch(updateLane(lane)))
-  )
-);
+  );
+};
 
 export const deleteLane = laneId => ({
   type: DELETE_LANE,
@@ -52,8 +48,8 @@ export const deleteLane = laneId => ({
 export const deleteLaneRequest = laneId => {
   return dispatch => {
     return callApi(`lanes/${laneId}`, 'delete')
-      .then(() => dispatch(deleteLane(laneId))
-      );
+      .then(dispatch(deleteLane(laneId)))
+      .catch(err => console.log(err));
   };
 };
 

@@ -6,17 +6,34 @@
 }
 
 .Lane {
-  width: 200px;
+  width: 250px;
   position: relative;
   background: lightblue;
   border: 1px solid darkcyan;
   border-radius: 5px;
   padding: 15px;
   margin: 10px;
+  display: grid;
+  grid-template-rows: 40px 1fr 20px 30px;
+}
+
+.LaneHeader {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 1.5em;
+  margin: 0 10px;
+  border-radius: 3px;
 }
 
 .DeleteLaneBtn {
   position: absolute;
   right: 5px;
   top: 5px;
+}
+
+.Lane p {
+  margin-top: 20px;
+  font-size: .7em;
 }

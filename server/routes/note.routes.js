@@ -5,6 +5,6 @@ const router = new Router();
 
 router.route('/notes').post(NoteController.addNote);
 router.route('/notes/:noteId').delete(NoteController.deleteNote);
-router.route('/notes/:noteId').put(NoteController.updateNote);
+router.route('/notes').put(NoteController.updateNote);
 
 export default router;
