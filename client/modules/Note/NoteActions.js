@@ -7,6 +7,7 @@ export const CREATE_NOTES = 'CREATE_NOTES';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
+export const MOVE_WITHIN_LANE = 'MOVE_NOTES';
 
 export const createNote = (note, laneId) => ({
   type: CREATE_NOTE,
@@ -62,3 +63,19 @@ export const editNote = noteId => ({
   type: EDIT_NOTE,
   noteId,
 });
+
+
+export const moveWithinLane = (laneId, targetId, sourceId) => {
+  // debugger;
+  return ({
+    type: MOVE_WITHIN_LANE,
+    laneId,
+    targetId,
+    sourceId,
+  });
+};
+
+// export const moveWithinLaneRequest = (laneId, targetId, sourceId) => dispatch => (
+//   callApi(`lanes/${laneId}`, 'put', {})
+//   .then(dispatch(moveWithinLane(laneId, targetId, sourceId)))
+// );

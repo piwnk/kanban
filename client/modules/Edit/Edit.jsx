@@ -34,10 +34,12 @@ export default class extends Component {
   )
 
   renderValue = () => (
-    <div className={styles.item}>
+    <div
+      className={styles.item}
+      onClick={this.props.onValueClick}
+    >
       <span
         className={styles.value}
-        onClick={this.props.onValueClick}
       >
         {this.props.value}
       </span>
@@ -47,6 +49,8 @@ export default class extends Component {
 
   renderEdit = () => (
     <input
+      // <textarea
+      className={styles.input}
       type="text"
       defaultValue={this.props.value}
       onBlur={this.finishEdit}

@@ -6,9 +6,9 @@ import Edit from '../Edit/Edit';
 
 import styles from './Lane.css';
 
-const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) => {
+const Lane = ({ connectDropTarget, lane, laneNotes, updateLane, addNote, deleteLane, editLane }) => {
   // const laneId = lane.id;
-  return (
+  return connectDropTarget(
     <div className={styles.Lane}>
       <div className={styles.LaneHeader}>
         <Edit
@@ -34,7 +34,7 @@ const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) =>
         notes={laneNotes}
         laneId={lane.id}
       />
-      <div className={styles.LaneAddNote}>
+      <div className={styles.AddNoteBtn}>
         <button
           onClick={() => addNote(
             { task: 'New note... ' },
@@ -45,9 +45,6 @@ const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) =>
       </div>
       <div>
         <p>{lane.id}</p>
-      </div>
-      <div>
-        <p>{lane._id}</p>
       </div>
     </div>
   );

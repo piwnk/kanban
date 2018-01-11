@@ -43,10 +43,10 @@ export const getLanes = (req, res) => {
 export const deleteLane = (req, res) => {
   Lane.findOne({ id: req.params.laneId })
   .then(lane => {
-    // lane.notes.map(note => {
-    //   Note.removeOne({ id: note.id })
-    //   .catch(err => res.status(500).send(err));
-    // });
+    lane.notes.map(note => {
+      Note.remove({ id: note.id })
+      .catch(err => res.status(500).send(err));
+    });
 
     lane.remove()
     .then(() => res.status(200).end())

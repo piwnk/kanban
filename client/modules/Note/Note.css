@@ -5,4 +5,14 @@
 
 .Note {
   list-style-type: none;
+  border: none;
+  background-color: lightgrey;
+  border-radius: 4px;
+  margin: 5px;
+  padding: 5px;
+  color: #4D4D4D;
+}
+
+.Note:hover {
+  background-color: #EDEFF0
 }

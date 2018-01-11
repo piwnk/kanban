@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+
 import Lanes from '../Lane/Lanes';
 
 import styles from './Kanban.css';
@@ -17,6 +22,7 @@ const Kanban = (props) => (
         })}
       >
         <i className="fa fa-plus" />
+        {/* <p>Add column...</p> */}
       </button>
     </div>
   </div>
@@ -37,4 +43,7 @@ const mapDispatchToProps = {
   createLane: createLaneRequest,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Kanban);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  DragDropContext(HTML5Backend)
+)(Kanban);

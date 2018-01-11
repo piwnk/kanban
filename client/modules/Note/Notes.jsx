@@ -6,7 +6,7 @@ import Edit from '../Edit/Edit';
 
 import styles from './Note.css';
 
-const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
+const Notes = ({ notes, laneId, editNote, updateNote, deleteNote, moveWithinLane }) => {
   // debugger;
   return (
     <ul className={styles.Notes}>
@@ -14,6 +14,8 @@ const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
         <Note
           id={note.id}
           key={note.id}
+          moveWithinLane={moveWithinLane}
+          laneId={laneId}
           // editing={note.editing} // WHY here (not in lanes)?
         >
           <Edit
@@ -36,6 +38,7 @@ const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
 Notes.propTypes = {
   deleteNote: PropTypes.func,
   updateNote: PropTypes.func,
+  moveWithinLane: PropTypes.func,
   laneId: PropTypes.string,
   editNote: PropTypes.func,
   notes: PropTypes.array,

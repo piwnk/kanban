@@ -4,24 +4,32 @@ import {
   UPDATE_LANE,
   DELETE_LANE,
   EDIT_LANE,
+  MOVE_BETWEEN_LANES,
 } from './LaneActions';
 import {
   CREATE_NOTE,
   DELETE_NOTE,
+  MOVE_WITHIN_LANE,
 } from '../Note/NoteActions';
 
 import omit from 'lodash/omit';
 
 const initialState = {};
 
+const moveNotes = (array, sourceNoteId, targetNoteId) => {
+  const sourceIndex = array.indexOf(sourceNoteId);
+  const targetIndex = array.indexOf(targetNoteId);
+  const arrayCopy = [...array];
+
+  arrayCopy.splice(targetIndex, 0, arrayCopy.splice(sourceIndex, 1)[0]);
+  return arrayCopy;
+};
+
 const LaneReducer = (state = initialState, action) => {
   let lane;
   switch (action.type) {
 
     case CREATE_LANE:
-      // return { ...state,
-      //   [action.lane.id]: action.lane,
-      // };
     case UPDATE_LANE:
       lane = {
         ...state[action.lane.id],
@@ -72,6 +80,30 @@ const LaneReducer = (state = initialState, action) => {
         return omit(state, action.laneId);
       }
 
+    case MOVE_WITHIN_LANE:
+      {
+        const newLane = { ...state[action.laneId] };
+        console.log(newLane);
+
+        newLane.notes = moveNotes(newLane.notes, action.sourceId, action.targetId);
+        // debugger;
+        return { ...state, [action.laneId]: newLane };
+      }
+
+    case MOVE_BETWEEN_LANES:
+      {
+        const targetLane = { ...state[action.targetLaneId] };
+        const sourceLane = { ...state[action.sourceLaneId] };
+
+        targetLane.notes = [...targetLane.notes, action.noteId];
+        sourceLane.notes = sourceLane.notes.filter(noteId => noteId !== action.noteId);
+
+        return {
+          ...state,
+          [action.targetLaneId]: targetLane,
+          [action.sourceLaneId]: sourceLane,
+        };
+      }
 
     default:
       return state;

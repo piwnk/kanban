@@ -10,6 +10,7 @@ export const CREATE_LANE = 'CREATE_LANE';
 export const UPDATE_LANE = 'UPDATE_LANE';
 export const DELETE_LANE = 'DELETE_LANE';
 export const EDIT_LANE = 'EDIT_LANE';
+export const MOVE_BETWEEN_LANES = 'MOVE_BETWEEN_LANES';
 
 import { createNotes } from '../Note/NoteActions';
 
@@ -67,6 +68,20 @@ export const editLane = laneId => {
 //     );
 //   };
 // };
+
+
+export const moveBetweenLanes = (targetLaneId, noteId, sourceLaneId) => ({
+  type: MOVE_BETWEEN_LANES,
+  targetLaneId,
+  noteId,
+  sourceLaneId,
+});
+
+export const moveBetweenLanesRequest = (targetLaneId, noteId, sourceLaneId) => dispatch => (
+  callApi('notes/move', 'put', { targetLaneId, noteId, sourceLaneId })
+  .then(dispatch(moveBetweenLanes(targetLaneId, noteId, sourceLaneId))
+  )
+);
 
 export function fetchLanes() {
   return (dispatch) => {
