@@ -34,9 +34,9 @@ export const updateLane = lane => ({
   type: UPDATE_LANE,
   lane });
 
-export const updateLaneRequest = lane => {
+export const updateLaneNameRequest = lane => {
   return dispatch => (
-    callApi(`lanes/${lane.id}`, 'put', lane)
+    callApi(`lanes/${lane.id}`, 'put', { name: lane.name })
     .then(() => dispatch(updateLane(lane)))
   );
 };

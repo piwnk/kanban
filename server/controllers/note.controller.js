@@ -78,10 +78,17 @@ export const deleteNote = (req, res) => {
       Lane.findOne({ id: laneId })
       .then(lane => {
         const notes = lane.notes.filter(note => note.id !== noteId);
-        return Lane.updateOne({
+        Lane.updateOne({
           id: noteId,
           notes,
+        })
+        .catch(err => res.status(500).send(err))
+        .then(() => {
+          Note.remove({ id: noteId })
+          .catch(err => res.status(500).send(err))
+          .then(() => res.status(200).end());
         });
       })
+      .catch(err => res.status(500).send(err))
     );
 };

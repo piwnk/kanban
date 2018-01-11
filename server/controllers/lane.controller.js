@@ -43,16 +43,14 @@ export const getLanes = (req, res) => {
 export const deleteLane = (req, res) => {
   Lane.findOne({ id: req.params.laneId })
   .then(lane => {
-    lane.notes.map(note => {
-      Note.removeOne({
-        id: note.id,
-      })
-      .catch(err => res.status(500).send(err))
-      .then();
-    });
+    // lane.notes.map(note => {
+    //   Note.removeOne({ id: note.id })
+    //   .catch(err => res.status(500).send(err));
+    // });
 
     lane.remove()
-    .then(() => res.status(200).end());
+    .then(() => res.status(200).end())
+    .catch(err => res.status(500).send(err));
   });
 };
 
@@ -60,14 +58,7 @@ export const deleteLane = (req, res) => {
 export const updateLane = (req, res) => {
   const lane = req.body;
 
-  Lane.findOne({ id: req.params.laneId })
-  .then(found => {
-    const laneUpdated = {
-      ...found,
-      ...lane,
-    };
-    Lane.updateOne(laneUpdated);
-  })
-  .then(() => res.status(200).end())
-  .catch(err => res.status(500).send(err));
+  Lane.findOneAndUpdate({ id: req.params.laneId }, lane)
+    .then(() => res.status(200).end())
+    .catch(err => res.status(500).send(err));
 };
