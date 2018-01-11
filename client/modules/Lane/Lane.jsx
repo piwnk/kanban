@@ -46,6 +46,9 @@ const Lane = ({ lane, laneNotes, updateLane, addNote, deleteLane, editLane }) =>
       <div>
         <p>{lane.id}</p>
       </div>
+      <div>
+        <p>{lane._id}</p>
+      </div>
     </div>
   );
 };

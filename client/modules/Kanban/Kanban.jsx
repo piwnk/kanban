@@ -13,7 +13,7 @@ const Kanban = (props) => (
     <div className={styles.AddLaneBtn}>
       <button
         onClick={() => props.createLane({
-          name: 'New lane',
+          name: 'Lane... ',
         })}
       >
         <i className="fa fa-plus" />

@@ -41,6 +41,7 @@ export const addNote = (req, res) => {
 export const updateNote = (req, res) => {
   const note = req.body;
   console.log(note);
+  delete note._id;
 
   return (
     Note.findOneAndUpdate({ id: note.id }, { task: note.task })

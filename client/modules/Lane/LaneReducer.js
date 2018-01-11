@@ -15,6 +15,7 @@ import omit from 'lodash/omit';
 const initialState = {};
 
 const LaneReducer = (state = initialState, action) => {
+  let lane;
   switch (action.type) {
 
     case CREATE_LANE:
@@ -22,14 +23,18 @@ const LaneReducer = (state = initialState, action) => {
       //   [action.lane.id]: action.lane,
       // };
     case UPDATE_LANE:
+      lane = {
+        ...state[action.lane.id],
+        ...action.lane,
+      };
       return {
         ...state,
-        [action.lane.id]: action.lane,
+        [action.lane.id]: lane,
       };
 
     case EDIT_LANE:
       {
-        const lane = {
+        lane = {
           ...state[action.laneId],
           editing: true,
         };

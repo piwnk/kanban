@@ -60,12 +60,14 @@ export const deleteLane = (req, res) => {
 export const updateLane = (req, res) => {
   const lane = req.body;
 
-  Lane.findOne({ id: lane.id })
-  .then(found => (
-    Lane.updateOne({
+  Lane.findOne({ id: req.params.laneId })
+  .then(found => {
+    const laneUpdated = {
+      ...found,
       ...lane,
-      notes: found.notes,
-    })
-  ))
-  .then(() => res.status(200).end());
+    };
+    Lane.updateOne(laneUpdated);
+  })
+  .then(() => res.status(200).end())
+  .catch(err => res.status(500).send(err));
 };
