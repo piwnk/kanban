@@ -36,7 +36,7 @@ export const addNote = (req, res) => {
 
 export const updateNote = (req, res) => {
   const note = req.body;
-  console.log(note);
+  // console.log(note);
   delete note._id;
 
   return (
@@ -70,33 +70,27 @@ export const deleteNote = (req, res) => {
   );
 };
 
-export const moveNote = (req, res) => {
+export const moveNote = async (req, res) => {
   const { noteId, sourceLaneId, targetLaneId } = req.body;
-  return Lane.findOne({ id: sourceLaneId })
-    .catch(err => res.status(500).send(err))
-    .then(sourceLane => {
-      const note = sourceLane.notes.find(item => item.id === noteId);
-      const sourceNotes = sourceLane.notes.filter(item => item.id !== noteId);
 
-      return Lane.updateOne({
-        id: sourceLaneId,
-        notes: sourceNotes,
-      }, () => console.log('source updated'))
-      .catch(err => res.status(500).send(err))
-      .then(
-        Lane.findOne({ id: targetLaneId })
-        .catch(err => res.status(500).send(err))
-        .then(targetLane => {
-          const targetNotes = [...targetLane.notes, note];
-          console.log(targetLane.notes);
-          console.log(targetNotes);
-          return Lane.updateOne({
-            id: targetLaneId,
-            notes: targetNotes,
-          }, () => console.log('target updated'))
-          .catch(err => res.status(500).send(err))
-          .then(() => res.status(200).end());
-        })
-      );
-    });
+  const sourceLane = await Lane.findOne({ id: sourceLaneId });
+  const targetLane = await Lane.findOne({ id: targetLaneId });
+
+  const note = await Note.findOne({ id: noteId });
+
+  const sourceLaneNotes = sourceLane.notes.filter(item => item.id !== noteId);
+  const targetLaneNotes = [
+    ...targetLane.notes,
+    note,
+  ];
+
+  const updateSource = await Lane.updateOne({ id: sourceLaneId }, { notes: sourceLaneNotes });
+  const updateTarget = await Lane.updateOne({ id: targetLaneId }, { notes: targetLaneNotes });
+
+  return Promise.all([
+    updateSource,
+    updateTarget,
+  ])
+  .catch(err => res.status(500).send(err))
+  .then(() => res.status(200).end());
 };

@@ -1,6 +1,6 @@
 {
   "presets": ["react", "env", "stage-0"],
-  "plugins": ["react-hot-loader/babel"],
+  "plugins": ["react-hot-loader/babel", "transform-async-to-generator"],
   "env": {
     "production": {
       "presets": ["env", "react", "react-optimize", "es2015-native-modules", "stage-0"]
