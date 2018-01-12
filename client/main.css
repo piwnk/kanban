@@ -1,6 +1,10 @@
 /*
   Global CSS file
 */
+
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+
 *{
 	margin: 0;
 	padding: 0;

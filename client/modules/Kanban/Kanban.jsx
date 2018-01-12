@@ -7,6 +7,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 
 import Lanes from '../Lane/Lanes';
+import Header from '../Header/Header';
 
 import styles from './Kanban.css';
 
@@ -14,6 +15,7 @@ import { createLaneRequest, fetchLanes } from '../Lane/LaneActions';
 
 const Kanban = (props) => (
   <div className={styles.Kanban}>
+    <Header />
     <Lanes lanes={props.lanes} />
     <div className={styles.AddLaneBtn}>
       <button
